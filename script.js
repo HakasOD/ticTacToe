@@ -99,10 +99,11 @@ function GameController(player1name = "player1", player2name = "player2"){
     let winner = null;
     let activePlayer = players[0];
 
+    const getBoard = () => GameBoard.getBoard();
 
     const getActivePlayer = () => activePlayer;
-    const getWinner = () => winner;
 
+    const getWinner = () => winner;
 
     const switchActivePlayer = () => {
         activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
@@ -120,12 +121,7 @@ function GameController(player1name = "player1", player2name = "player2"){
 
     const playRound = (row, column) => {
         // Get valid move
-        while(!validateMove(row, column)){
-            console.log("invalid move!")
-            row = prompt("Enter row");
-            column = prompt("Enter column");
-        }
-
+        if (!validateMove(row, column)) return;
 
         GameBoard.occupyCell(row, column, activePlayer);  
 
@@ -272,13 +268,59 @@ function GameController(player1name = "player1", player2name = "player2"){
         isGameOver, 
         getActivePlayer,
         playGame,
-        validateMove
+        getBoard
         }
 }
 
-const game = GameController("hak", "leo");
+const ScreenController = (function(){
+    const game = GameController();
+    
+    const playerTurnDiv = document.querySelector(".turn");
+    const boardDiv = document.querySelector(".board");
 
-game.playRound(0, 0);
+    const updateDisplay = () => {
+        const board = game.getBoard();
+        const activePlayer = game.getActivePlayer();
+
+        // Clear Board
+        boardDiv.textContent = "";
+
+        playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
+
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, columnIndex) => {
+                let cellValue = " "
+                if (cell.getOccupyingPlayer() !== ""){
+                    cellValue = cell.getOccupyingPlayer().value;
+                }
+
+                // create cell button
+                const cellBtn = document.createElement("button");
+                cellBtn.classList.add("cell");
+                cellBtn.dataset.row = rowIndex;
+                cellBtn.dataset.column = columnIndex;
+                cellBtn.textContent = cellValue;
+
+                boardDiv.appendChild(cellBtn);
+            })
+        })
+    }
+
+    function clickHandlerBoard(e){
+        const selectedRow = e.target.dataset.row;
+        const selectedColumn = e.target.dataset.column;
+
+        if (!selectedRow) return;
+        if (!selectedColumn) return;
+        
+        game.playRound(selectedRow, selectedColumn);
+        updateDisplay();
+    }
+    boardDiv.addEventListener("click", clickHandlerBoard);
+
+    updateDisplay();
+
+})();
 
 
-// game.playGame();
+// TODO: Draw function

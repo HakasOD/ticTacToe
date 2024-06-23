@@ -111,7 +111,7 @@ function GameController(player1name = "player1", player2name = "player2"){
 
     const printRound = () => {
         console.log(`It is ${activePlayer.name}'s turn: `);
-        console.log(GameBoard.printBoard());
+        GameBoard.printBoard();
     };
 
     const printWinner = () => {
@@ -120,23 +120,29 @@ function GameController(player1name = "player1", player2name = "player2"){
     }
 
     const playRound = (row, column) => {
-        // Get valid move
-        if (!validateMove(row, column)) return;
 
+        if (!validateMove(row, column)) return;
         GameBoard.occupyCell(row, column, activePlayer);  
 
+
         if(isGameOver()){
-            winner === players[0] ? Score.incrementPlayer1Score() : Score.incrementPlayer2Score();
-            printWinner();
+            if(isDraw()){
+                console.log("Draw!!")
+            } else{
+                winner === players[0] ? Score.incrementPlayer1Score() : Score.incrementPlayer2Score();
+                printWinner();
+            }
+      
             newGame();
         }
 
         switchActivePlayer();   
       
+        console.log(isDraw())
         printRound();
     };
 
-    const playGame = () => {
+    const playGame = () => {    
         do {
             let row = prompt("Enter row");
             let column = prompt("Enter column");
@@ -166,6 +172,21 @@ function GameController(player1name = "player1", player2name = "player2"){
         if (!validateRow(row)) return false;
         if (!validateColumn(column)) return false;
         if (GameBoard.isOccupiedCell(row, column)) return false;
+
+        return true;
+    }
+
+    const isDraw = () => {
+        //Every cell occupied = draw
+        let board = GameBoard.getBoard();
+
+        for(let row = 0; row < GameBoard.getNumberOfRows(); row++){
+            for(let column = 0; column < GameBoard.getNumberOfColumns(); column++){
+                if(!board[row][column].isOccupied()){
+                    return false;
+                }
+            }
+        }
 
         return true;
     }
@@ -258,7 +279,8 @@ function GameController(player1name = "player1", player2name = "player2"){
     const isGameOver = () => {
         return  checkVerticalWinCondition() ||
                 checkDiagonalWinCondition() ||
-                checkHorizontalWinCondition();
+                checkHorizontalWinCondition() ||
+                isDraw();
     };
 
 
@@ -323,4 +345,3 @@ const ScreenController = (function(){
 })();
 
 
-// TODO: Draw function

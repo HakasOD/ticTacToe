@@ -343,5 +343,3 @@ const ScreenController = (function(){
     updateDisplay();
 
 })();
-
-

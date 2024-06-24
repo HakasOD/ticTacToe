@@ -31,6 +31,50 @@ body h1 {
     margin-top: 4vh;
 }
 
+.hide {
+    display: none !important;
+}
+
+.menu {
+    margin-top: 10vh;
+}
+
+.menu form {
+    display: flex;
+    flex-direction: column;
+    font-size: x-large;
+}
+
+.menu input {
+    width: 30vw;
+    max-width: 200px;
+    font-size: x-large;
+    padding: 0 10px;
+    border: none;
+    border-bottom: solid black 2px;
+}
+
+.menu input:focus {
+    outline: none;
+}
+
+.menu button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    font-size: xx-large;
+    margin-top: 5vh;
+}
+
+.menu form div {
+    margin-bottom: 2vh;
+}
+
+.menu button:hover {
+    transition: 0.1s;
+    transform: scale(1.2);
+}
+
 .game {
     flex: 1;
     padding-top: 6vh;
@@ -38,6 +82,7 @@ body h1 {
     flex-direction: column;
     align-items: center;
     gap: 5vh;
+    position: relative;
 }
 
 .game-over-text {
@@ -46,16 +91,12 @@ body h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     background-color: rgba(0, 0, 0, 0.897);
     font-size: 10rem;
     color: white;
-}
-
-.hide {
-    display: none;
 }
 
 .status-info,
@@ -65,19 +106,28 @@ body h1 {
 
 .status-info {
     display: flex;
+    justify-content: space-between;
 }
 
-.status-info > * {
-    flex: 1;
-}
 
-.score {
+
+.status-info button {
+    border: solid black 2px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.863);
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
     text-align: right;
+    padding: 0 10px;
 }
 
-.turn {
-    text-align: left;
+.status-info button:hover {
+    cursor: pointer;
+    transition: 0.1;
+    transform: scale(1.1);
 }
+
 
 .board {
     display: grid;

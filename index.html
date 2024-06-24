@@ -16,13 +16,28 @@
 </head>
 <body>
     <h1>Tic-Tac-Toe</h1>
-    <div class="game">
+    <div class="menu hide">
+        <form action="">
+            <div>
+                <label for="player1-name">Player 1 name:</label>
+                <input type="text" id="player1-name" name="player1Name">
+            </div>
+            <div>
+                <label for="player2-name">Player 2 name:</label>
+                <input type="text" id="player2-name" name="player2name">
+            </div>
+
+            <button type="button" id="start-button">Start Game</button>
+        </form>
+    </div>
+    <div class="game hide">
         <div class="status-info">    
             <h2 class="turn"></h2>
             <h2 class="score"></h2>
+            <button class="restart-button">Restart game</button>
         </div>
         <div class="board"></div>
-        <div data-game-over-text class="game-over-text hide">asf</div>
+        <div data-game-over-text class="game-over-text hide"></div>
     </div>
 </body>
 </html>

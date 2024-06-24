@@ -300,10 +300,16 @@ function GameController(player1name = "player 1", player2name = "player 2"){
 const ScreenController = (function(){
     const game = GameController();
     
+    const gameDiv = document.querySelector(".game");
     const playerTurnH2 = document.querySelector(".turn");
     const scoreH2 = document.querySelector(".score");
     const boardDiv = document.querySelector(".board");
     const gameOverMessage = document.querySelector(".game-over-text");
+    const menuDiv = document.querySelector(".menu");
+    const startBtn = document.querySelector("#start-button");
+    const restartBtn = document.querySelector(".restart-button");
+
+
 
     const updateDisplay = () => {
         const board = game.getBoard();
@@ -331,7 +337,6 @@ const ScreenController = (function(){
             })
         })
 
-        console.log(game.isGameOver());
         onGameOver();
     }
 
@@ -368,6 +373,16 @@ const ScreenController = (function(){
     }
     gameOverMessage.addEventListener("click", clickHandlerGameOverMessage);
 
+
+    function toggleMenuAndGame(){
+        menuDiv.classList.toggle("hide");
+        gameDiv.classList.toggle("hide");
+    }
+    startBtn.addEventListener("click", toggleMenuAndGame);
+    restartBtn.addEventListener("click", toggleMenuAndGame);
+
+
+    menuDiv.classList.toggle("hide");
     updateDisplay();
 
 })();

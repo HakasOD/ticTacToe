@@ -185,6 +185,9 @@ function GameController(){
     }
 
     const isDraw = () => {
+        // There cannot be a winner
+        if(isWinConditionsSatisfied()) return false;
+
         //Every cell occupied = draw
         let board = GameBoard.getBoard();
 
@@ -284,10 +287,14 @@ function GameController(){
         return isWinConditionSatisfied;
     }
 
+    const isWinConditionsSatisfied = () => {
+        return checkVerticalWinCondition() ||
+               checkDiagonalWinCondition() ||
+               checkHorizontalWinCondition();
+    }
+
     const isGameOver = () => {
-        return  checkVerticalWinCondition() ||
-                checkDiagonalWinCondition() ||
-                checkHorizontalWinCondition() ||
+        return  isWinConditionsSatisfied() ||
                 isDraw();
     };
 

@@ -39,17 +39,36 @@ body h1 {
     gap: 5vh;
 }
 
+.status-info,
+.board {
+    width: clamp(500px, 50vw, 700px);
+}
+
+.status-info {
+    display: flex;
+}
+
+.status-info > * {
+    flex: 1;
+}
+
+.score {
+    text-align: right;
+}
+
+.turn {
+    text-align: left;
+}
 
 .board {
     display: grid;
-    width: clamp(500px, 50vw, 700px);
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 20vh;
 }
 
 
 
-.cell  {
+.cell {
     line-height: 0px;
     font-size: 10rem;
     text-align: center;
@@ -57,7 +76,10 @@ body h1 {
     outline: none;
     color: black;
     border: solid black 1px;
+    cursor: pointer;
 }
+
+
 
 .cell:first-child,
 .cell:nth-child(2),

@@ -119,6 +119,10 @@ function GameController(player1name = "player 1", player2name = "player 2"){
         console.log(`Score: ${Score.getPlayer1Score()} vs ${Score.getPlayer2Score()}`);
     }
 
+    const getScore = () => {
+        return `Score: ${Score.getPlayer1Score()} vs ${Score.getPlayer2Score()}`
+    }
+
     const playRound = (row, column) => {
 
         if (!validateMove(row, column)) return;
@@ -132,13 +136,11 @@ function GameController(player1name = "player 1", player2name = "player 2"){
                 winner === players[0] ? Score.incrementPlayer1Score() : Score.incrementPlayer2Score();
                 printWinner();
             }
-      
+            
             newGame();
-        }
+        } else switchActivePlayer();
 
-        switchActivePlayer();   
       
-        console.log(isDraw())
         printRound();
     };
 
@@ -152,11 +154,13 @@ function GameController(player1name = "player 1", player2name = "player 2"){
 
     const newGame = () => {
         GameBoard.initiliseBoard();
+        activePlayer = players[0];
     }
 
     const resetGame = () => {
         GameBoard.initiliseBoard();
         Score.resetScore();
+        activePlayer = players[0];
     }
 
     const validateRow = (row) => {
@@ -290,24 +294,25 @@ function GameController(player1name = "player 1", player2name = "player 2"){
         isGameOver, 
         getActivePlayer,
         playGame,
-        getBoard
+        getBoard,
+        getScore
         }
 }
 
 const ScreenController = (function(){
     const game = GameController();
     
-    const playerTurnDiv = document.querySelector(".turn");
+    const playerTurnH2 = document.querySelector(".turn");
+    const scoreH2 = document.querySelector(".score");
     const boardDiv = document.querySelector(".board");
 
     const updateDisplay = () => {
         const board = game.getBoard();
         const activePlayer = game.getActivePlayer();
 
-        // Clear Board
         boardDiv.textContent = "";
-
-        playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
+        playerTurnH2.textContent = `${activePlayer.name}'s turn`;
+        scoreH2.textContent = game.getScore();
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {

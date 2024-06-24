@@ -141,22 +141,12 @@ function GameController(player1name = "player 1", player2name = "player 2"){
                 winner === players[0] ? Score.incrementPlayer1Score() : Score.incrementPlayer2Score();
                 printWinner();
             }
-            
-            newGame();
 
         } else switchActivePlayer();
 
       
         printRound();
     };
-
-    const playGame = () => {    
-        do {
-            let row = prompt("Enter row");
-            let column = prompt("Enter column");
-            playRound(row, column);
-        } while (!isGameOver());
-    }
 
     const newGame = () => {
         GameBoard.initiliseBoard();
@@ -300,9 +290,10 @@ function GameController(player1name = "player 1", player2name = "player 2"){
         playRound,
         isGameOver, 
         getActivePlayer,
-        playGame,
         getBoard,
-        getScore
+        getScore,
+        newGame,
+        isDraw
         }
 }
 
@@ -312,6 +303,7 @@ const ScreenController = (function(){
     const playerTurnH2 = document.querySelector(".turn");
     const scoreH2 = document.querySelector(".score");
     const boardDiv = document.querySelector(".board");
+    const gameOverMessage = document.querySelector(".game-over-text");
 
     const updateDisplay = () => {
         const board = game.getBoard();
@@ -323,7 +315,7 @@ const ScreenController = (function(){
 
         board.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
-                let cellValue = " "
+                let cellValue = " ";
                 if (cell.getOccupyingPlayer() !== ""){
                     cellValue = cell.getOccupyingPlayer().value;
                 }
@@ -338,6 +330,23 @@ const ScreenController = (function(){
                 boardDiv.appendChild(cellBtn);
             })
         })
+
+        console.log(game.isGameOver());
+        onGameOver();
+    }
+
+    function onGameOver(){
+        if(game.isGameOver()){
+            gameOverMessage.classList.toggle("hide");
+
+            if(game.isDraw()){
+                gameOverMessage.textContent = "Draw!";
+            } else {
+                gameOverMessage.textContent = `${game.getWinner().name} wins!`;
+            }
+
+            game.newGame();
+        }
     }
 
     function clickHandlerBoard(e){
@@ -351,6 +360,13 @@ const ScreenController = (function(){
         updateDisplay();
     }
     boardDiv.addEventListener("click", clickHandlerBoard);
+
+
+    function clickHandlerGameOverMessage(){
+        gameOverMessage.classList.toggle("hide");
+        updateDisplay();
+    }
+    gameOverMessage.addEventListener("click", clickHandlerGameOverMessage);
 
     updateDisplay();
 

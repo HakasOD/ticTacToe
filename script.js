@@ -68,7 +68,7 @@ function Player(name, value){
     return {name, value};
 }
 
-function GameController(player1name = "player1", player2name = "player2"){
+function GameController(player1name = "player 1", player2name = "player 2"){
     const players = [
         Player(player1name, "x"),
         Player(player2name, "o")

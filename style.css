@@ -1,7 +1,20 @@
+.permanent-marker-regular {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.gochi-hand-regular {
+    font-family: "Gochi Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+
 * {
     margin: 0;
     padding: 0;
-
+    font-family: "Gochi Hand";
 }
 
 body {
@@ -12,9 +25,14 @@ body {
     flex-direction: column;
 }
 
+body h1 {
+    font-size: 5rem;
+    margin-top: 4vh;
+}
+
 .game {
     flex: 1;
-    padding-top: 10vh;
+    padding-top: 6vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +42,37 @@ body {
 
 .board {
     display: grid;
-    width: clamp(300px, 50vw, 700px);
+    width: clamp(500px, 50vw, 700px);
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 20vh;
+}
+
+
+
+.cell  {
+    line-height: 0px;
+    font-size: 10rem;
+    text-align: center;
+    background-color: white;
+    outline: none;
+    color: black;
+    border: solid black 1px;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(1n+7) {
+    border-bottom: none;
+}
+
+.cell:nth-child(3n+1) {
+    border-left: none;
+}
+
+.cell:nth-child(3n+3) {
+    border-right: none;
 }

@@ -106,10 +106,23 @@ body h1 {
 
 .status-info {
     display: flex;
-    justify-content: space-between;
 }
 
+.status-info > * {
+    flex: 1;
+}
 
+.status-info .turn {
+    text-align: left;
+}
+
+.status-info .score {
+    text-align: center;
+}
+
+.status-info div {
+    text-align: right;
+}
 
 .status-info button {
     border: solid black 2px;
@@ -118,7 +131,7 @@ body h1 {
     color: white;
     font-size: 1.5em;
     font-weight: bold;
-    text-align: right;
+    text-align: center;
     padding: 0 10px;
 }
 

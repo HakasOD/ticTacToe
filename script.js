@@ -12,7 +12,6 @@ const GameBoard = (function(){
             }
         }
     }
-
     initiliseBoard();
 
     const getNumberOfRows = () => row;
@@ -134,7 +133,6 @@ function GameController(){
     }
 
     const playRound = (row, column) => {
-
         if (!validateMove(row, column)) return;
         GameBoard.occupyCell(row, column, activePlayer);  
 
@@ -234,7 +232,7 @@ function GameController(){
         const numberOfRows = GameBoard.getNumberOfRows();
         const board = GameBoard.getBoard();
 
-        for(let row = 0; row < numberOfRows; row++){    //Refacor if's
+        for(let row = 0; row < numberOfRows; row++){    
           
             if(board[row][0].getOccupyingPlayer() !== "" &&
                 board[row].every(cell => cell.getOccupyingPlayer() === board[row][0].getOccupyingPlayer())) {

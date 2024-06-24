@@ -68,10 +68,10 @@ function Player(name, value){
     return {name, value};
 }
 
-function GameController(player1name = "player 1", player2name = "player 2"){
+function GameController(){
     const players = [
-        Player(player1name, "x"),
-        Player(player2name, "o")
+        Player("Player 1", "x"),
+        Player("Player 2", "o")
     ];
 
     const Score = (function(){
@@ -99,6 +99,11 @@ function GameController(player1name = "player 1", player2name = "player 2"){
     let winner = null;
     let activePlayer = players[0];
     let startingPlayer = players[0];
+
+    const setPlayerNames = (player1name, player2name) => {
+        player1name === "" ? players[0].name = "player 1" : players[0].name = player1name;
+        player2name === "" ? players[1].name = "player 2" : players[1].name = player2name;
+    }
 
     const getBoard = () => GameBoard.getBoard();
 
@@ -293,13 +298,16 @@ function GameController(player1name = "player 1", player2name = "player 2"){
         getBoard,
         getScore,
         newGame,
-        isDraw
+        isDraw,
+        setPlayerNames
         }
 }
 
 const ScreenController = (function(){
     const game = GameController();
     
+    const player1NameInput = document.querySelector("#player1-name");
+    const player2NameInput = document.querySelector("#player2-name");
     const gameDiv = document.querySelector(".game");
     const playerTurnH2 = document.querySelector(".turn");
     const scoreH2 = document.querySelector(".score");
@@ -340,6 +348,16 @@ const ScreenController = (function(){
         onGameOver();
     }
 
+    function setPlayerNamesFromUserInput(){
+        const player1name = player1NameInput.value;
+        const player2name = player2NameInput.value;
+        
+        game.setPlayerNames(player1name, player2name);
+        updateDisplay();
+    }
+
+    startBtn.addEventListener("click", setPlayerNamesFromUserInput);
+
     function onGameOver(){
         if(game.isGameOver()){
             gameOverMessage.classList.toggle("hide");
@@ -366,6 +384,7 @@ const ScreenController = (function(){
     }
     boardDiv.addEventListener("click", clickHandlerBoard);
 
+    
 
     function clickHandlerGameOverMessage(){
         gameOverMessage.classList.toggle("hide");
@@ -381,6 +400,7 @@ const ScreenController = (function(){
     startBtn.addEventListener("click", toggleMenuAndGame);
     restartBtn.addEventListener("click", toggleMenuAndGame);
 
+    
 
     menuDiv.classList.toggle("hide");
     updateDisplay();

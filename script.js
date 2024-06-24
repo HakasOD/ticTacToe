@@ -98,6 +98,7 @@ function GameController(player1name = "player 1", player2name = "player 2"){
 
     let winner = null;
     let activePlayer = players[0];
+    let startingPlayer = players[0];
 
     const getBoard = () => GameBoard.getBoard();
 
@@ -108,6 +109,10 @@ function GameController(player1name = "player 1", player2name = "player 2"){
     const switchActivePlayer = () => {
         activePlayer === players[0] ? activePlayer = players[1] : activePlayer = players[0];
     };
+
+    const switchStartingPlayer = () => {
+        startingPlayer === players[0] ? startingPlayer = players[1] : startingPlayer = players[0];
+    }
 
     const printRound = () => {
         console.log(`It is ${activePlayer.name}'s turn: `);
@@ -138,6 +143,7 @@ function GameController(player1name = "player 1", player2name = "player 2"){
             }
             
             newGame();
+
         } else switchActivePlayer();
 
       
@@ -154,7 +160,8 @@ function GameController(player1name = "player 1", player2name = "player 2"){
 
     const newGame = () => {
         GameBoard.initiliseBoard();
-        activePlayer = players[0];
+        switchStartingPlayer();
+        activePlayer = startingPlayer;
     }
 
     const resetGame = () => {

@@ -349,6 +349,22 @@ const ScreenController = (function(){
                 cellBtn.dataset.column = columnIndex;
                 cellBtn.textContent = cellValue;
 
+                // Hover effect
+                cellBtn.addEventListener("mouseover", () => {
+                    if(cellBtn.textContent === " "){
+                        cellBtn.textContent = game.getActivePlayer().value;
+                        cellBtn.classList.add("hover-markers");
+                    }
+                })
+
+                cellBtn.addEventListener("mouseout", () => {
+                    if(cellBtn.classList.contains("hover-markers")){
+                        cellBtn.textContent = " ";
+                        cellBtn.classList.remove("hover-markers");    
+                    }
+                    
+                })
+
                 boardDiv.appendChild(cellBtn);
             })
         })
@@ -407,6 +423,11 @@ const ScreenController = (function(){
     }
     startBtn.addEventListener("click", toggleMenuAndGame);
     restartBtn.addEventListener("click", toggleMenuAndGame);
+    
+    function hoverEffect(cellBtn){
+        cellBtn.textContent = game.getActivePlayer().value;
+        
+    }
 
 
     restartBtn.addEventListener("click", game.resetGame);

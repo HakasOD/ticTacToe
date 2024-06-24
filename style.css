@@ -99,6 +99,10 @@ body h1 {
     color: white;
 }
 
+.hover-markers {
+    color: rgba(0, 0, 0, 0.205) !important;
+}
+
 .status-info,
 .board {
     width: clamp(500px, 50vw, 700px);

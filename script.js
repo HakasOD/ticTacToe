@@ -163,6 +163,8 @@ function GameController(){
         GameBoard.initiliseBoard();
         Score.resetScore();
         activePlayer = players[0];
+        setPlayerNames("", "");
+
     }
 
     const validateRow = (row) => {
@@ -299,7 +301,8 @@ function GameController(){
         getScore,
         newGame,
         isDraw,
-        setPlayerNames
+        setPlayerNames,
+        resetGame
         }
 }
 
@@ -400,8 +403,8 @@ const ScreenController = (function(){
     startBtn.addEventListener("click", toggleMenuAndGame);
     restartBtn.addEventListener("click", toggleMenuAndGame);
 
-    
 
+    restartBtn.addEventListener("click", game.resetGame);
     menuDiv.classList.toggle("hide");
     updateDisplay();
 
